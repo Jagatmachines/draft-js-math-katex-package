@@ -218,23 +218,8 @@ export const codeBlockShow = (editorState) => {
     customEntityTransform
   );
 
-  // console.log(rawContentState);
-  
-
-  // debugger;
-  /* const rawContentState = convertToRaw(this.state.editorState.getCurrentContent());
-  const markup = draftToHtml(
-    rawContentState, 
-    hashtagConfig, 
-    directional, 
-    customEntityTransform
-  ); */
-
-  return (
-    <div>{markup}</div>
-  )
+  return markup;
 }
-
 
 export default class CustomInlineToolbarEditor extends Component {
 
@@ -293,8 +278,8 @@ export default class CustomInlineToolbarEditor extends Component {
               }
             </Toolbar>
             <Editor
-              editorState={this.state.editorState}
-              onChange={this.onChange}
+              editorState={this.props.editorState}
+              onChange={this.props.onChange}
               plugins={plugins}
               ref={(element) => { this.editor = element; }}
               {...this.props}
