@@ -14,6 +14,10 @@ import createDragNDropUploadPlugin from '@mikeljames/draft-js-drag-n-drop-upload
 import createResizeablePlugin from 'draft-js-resizeable-plugin';
 import createAlignmentPlugin from 'draft-js-alignment-plugin';
 
+import createCodeEditorPlugin from 'draft-js-code-editor-plugin';
+import Prism from 'prismjs';
+import createPrismPlugin from 'draft-js-prism-plugin';
+
 
 import createToolbarPlugin, { Separator } from 'draft-js-static-toolbar-plugin';
 import {
@@ -36,11 +40,13 @@ import createKaTeXPlugin from 'draft-js-katex-plugin';
 import katex from 'katex';
 
 import mockUpload from './mockUpload';
+import ImageAdd from './imageAdd';
 
 import 'draft-js-image-plugin/lib/plugin.css';
 import 'draft-js-alignment-plugin/lib/plugin.css';
 import 'draft-js-static-toolbar-plugin/lib/plugin.css';
 // import 'katex/dist/katex.min.css';
+// import "prismjs/themes/prism.css";
 import './editorStyles.css';
 
 // import createMathjaxPlugin from 'draft-js-mathjax-plugin'
@@ -65,6 +71,7 @@ const resizeablePlugin = createResizeablePlugin();
 const focusPlugin = createFocusPlugin();
 const blockDndPlugin = createBlockDndPlugin();
 const alignmentPlugin = createAlignmentPlugin();
+const codeEditorPlugin = createCodeEditorPlugin();
 
 const { AlignmentTool } = alignmentPlugin;
 
@@ -76,6 +83,7 @@ const decorator = composeDecorators(
   alignmentPlugin.decorator,
 );
 const imagePlugin = createImagePlugin({ decorator });
+const prismPlugin = createPrismPlugin({ prism: Prism });
 
 const dragNDropFileUploadPlugin = createDragNDropUploadPlugin({
   handleUpload: mockUpload,
@@ -142,11 +150,13 @@ const plugins = [
   blockDndPlugin,
   focusPlugin,
   imagePlugin,
-  dragNDropFileUploadPlugin,
+  /* dragNDropFileUploadPlugin, */
   resizeablePlugin,
   alignmentPlugin,
   toolbarPlugin,
-  kaTeXPlugin
+  kaTeXPlugin,
+  prismPlugin,
+  codeEditorPlugin
 ];
 const text = 'In this editor a toolbar shows up once you select part of the text …';
 /* eslint-disable */
@@ -266,13 +276,13 @@ export default class CustomInlineToolbarEditor extends Component {
                     <UnderlineButton {...externalProps} />
                     <CodeButton {...externalProps} />
                     <Separator {...externalProps} />
-                    <HeadlinesButton {...externalProps} />
+                    {/* <HeadlinesButton {...externalProps} /> */}
                     <UnorderedListButton {...externalProps} />
                     <OrderedListButton {...externalProps} />
                     <BlockquoteButton {...externalProps} />
                     <CodeBlockButton {...externalProps} />
                     <Separator {...externalProps} />
-                    <InsertButton initialValue="int(s-x)^3">KaTex</InsertButton>
+                    <InsertButton initialValue="placeholder for equation">KaTex</InsertButton>
                   </div>
                 )
               }
@@ -283,6 +293,11 @@ export default class CustomInlineToolbarEditor extends Component {
               plugins={plugins}
               ref={(element) => { this.editor = element; }}
               {...this.props}
+            />
+            <ImageAdd
+              editorState={this.props.editorState}
+              onChange={this.props.onChange}
+              modifier={imagePlugin.addImage}
             />
             
             <AlignmentTool />
