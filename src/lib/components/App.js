@@ -263,45 +263,43 @@ export default class CustomInlineToolbarEditor extends Component {
   render() {
     return (
       <React.Fragment>
-        <div style={{ marginTop: '100px' }}>
-          <div className='editor' onClick={this.focus}>
+        <div className='editor' onClick={this.focus}>
           
-            <Toolbar>
-              {
-                // may be use React.Fragment instead of div to improve perfomance after React 16
-                (externalProps) => (
-                  <div>
-                    <BoldButton {...externalProps} />
-                    <ItalicButton {...externalProps} />
-                    <UnderlineButton {...externalProps} />
-                    <CodeButton {...externalProps} />
-                    <Separator {...externalProps} />
-                    {/* <HeadlinesButton {...externalProps} /> */}
-                    <UnorderedListButton {...externalProps} />
-                    <OrderedListButton {...externalProps} />
-                    <BlockquoteButton {...externalProps} />
-                    <CodeBlockButton {...externalProps} />
-                    <Separator {...externalProps} />
-                    <InsertButton initialValue="placeholder for equation">KaTex</InsertButton>
-                  </div>
-                )
-              }
-            </Toolbar>
-            <Editor
-              editorState={this.props.editorState}
-              onChange={this.props.onChange}
-              plugins={plugins}
-              ref={(element) => { this.editor = element; }}
-              {...this.props}
-            />
-            <ImageAdd
-              editorState={this.props.editorState}
-              onChange={this.props.onChange}
-              modifier={imagePlugin.addImage}
-            />
-            
-            <AlignmentTool />
-          </div>
+          <Toolbar>
+            {
+              // may be use React.Fragment instead of div to improve perfomance after React 16
+              (externalProps) => (
+                <div>
+                  <BoldButton {...externalProps} />
+                  <ItalicButton {...externalProps} />
+                  <UnderlineButton {...externalProps} />
+                  {/* <CodeButton {...externalProps} /> */}
+                  <Separator {...externalProps} />
+                  {/* <HeadlinesButton {...externalProps} /> */}
+                  <UnorderedListButton {...externalProps} />
+                  <OrderedListButton {...externalProps} />
+                  <BlockquoteButton {...externalProps} />
+                  <CodeBlockButton {...externalProps} />
+                  <Separator {...externalProps} />
+                  <InsertButton initialValue="Click\:Here\:to\:Enter\:Equation\:in\:LaTeX">F(x)</InsertButton>
+                </div>
+              )
+            }
+          </Toolbar>
+          <Editor
+            editorState={this.props.editorState}
+            onChange={this.props.onChange}
+            plugins={plugins}
+            ref={(element) => { this.editor = element; }}
+            {...this.props}
+          />
+          <ImageAdd
+            editorState={this.props.editorState}
+            onChange={this.props.onChange}
+            modifier={imagePlugin.addImage}
+          />
+          
+          <AlignmentTool />
         </div>
 
         {/* <code>
