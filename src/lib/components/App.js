@@ -64,8 +64,8 @@ const kaTeXPlugin = createKaTeXPlugin({
     insertButton: 'Button Button-small Button-insert',
   }, */
   theme: {
-    saveButton: this.props.saveButton || "",
-    removeButton: this.props.removeButton || ""
+    saveButton: "save-btn",
+    removeButton: "remove-btn"
   }
   //translator: /* props.withAsciimath ? asciimath2latex :  */null,
 });
