@@ -80,16 +80,19 @@ export default class ImageAdd extends Component {
           +
         </button> */}
         <div className={popoverClassName} onClick={this.onPopoverClick}>
-          <input
-            type="text"
-            placeholder="Paste the image url …"
-            className={styles.addImageInput}
-            onChange={this.changeUrl}
-            value={this.state.url}
-          />
-          {this.state.invalidUrl && (
-            <span className="invalid">{this.state.invalidUrl}</span>
-          )}
+          <div className="url-container">
+            <input
+              className="url-input"
+              type="text"
+              placeholder="Paste the image url …"
+              className={styles.addImageInput}
+              onChange={this.changeUrl}
+              value={this.state.url}
+            />
+            {this.state.invalidUrl && (
+              <span className="invalid">{this.state.invalidUrl}</span>
+            )}
+          </div>
           <div className="image-button-container">
             <button
               className={
