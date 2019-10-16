@@ -57,6 +57,9 @@ export default class ImageAdd extends Component {
 
   changeUrl = evt => {
     this.setState({ url: evt.target.value });
+    if (this.validateUrl(evt.target.value || "") && this.state.invalidUrl) {
+      this.setState({ invalidUrl: undefined });
+    }
   };
 
   render() {
