@@ -41,11 +41,17 @@ export default class ImageAdd extends Component {
 
     this.preventNextClose = false;
   };
-
+  validateUrl = url => {
+    return url.match(/^https?:\/\//);
+  };
   addImage = () => {
     const { editorState, onChange } = this.props;
-    if (this.state.url && this.state.url !== "") {
-      onChange(this.props.modifier(editorState, this.state.url));
+    const { url } = this.state;
+    if (url && url !== "" && this.validateUrl(url)) {
+      this.setState({ invalidUrl: undefined });
+      onChange(this.props.modifier(editorState, url));
+    } else {
+      this.setState({ invalidUrl: "Invalid Url, Enter a valid url" });
     }
   };
 
@@ -78,15 +84,20 @@ export default class ImageAdd extends Component {
             onChange={this.changeUrl}
             value={this.state.url}
           />
-          <button
-            className={
-              this.props.imageButtonClassName || styles.addImageConfirmButton
-            }
-            type="button"
-            onClick={this.addImage}
-          >
-            Add
-          </button>
+          {this.state.invalidUrl && (
+            <span className="invalid">{this.state.invalidUrl}</span>
+          )}
+          <div className="image-button-container">
+            <button
+              className={
+                this.props.imageButtonClassName || styles.addImageConfirmButton
+              }
+              type="button"
+              onClick={this.addImage}
+            >
+              Add
+            </button>
+          </div>
         </div>
       </div>
     );
