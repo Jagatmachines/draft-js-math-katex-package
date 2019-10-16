@@ -95,6 +95,7 @@ export default class ImageAdd extends Component {
           </div>
           <div className="image-button-container">
             <button
+              disabled={!this.state.url || this.state.url === ""}
               className={
                 this.props.imageButtonClassName || styles.addImageConfirmButton
               }
