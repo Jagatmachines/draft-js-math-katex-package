@@ -56,7 +56,7 @@ import "./editorStyles.css";
 
 const kaTeXPlugin = createKaTeXPlugin({
   // the configs here are mainly to show you that it is possible. Feel free to use w/o config
-  doneContent: { valid: "Close", invalid: "Invalid syntax" },
+  doneContent: { valid: "Save", invalid: "Invalid syntax" },
   katex, // <-- required
   // MathInput: /* props.withMathInput ? MathInput : */ null,
   removeContent: "Remove",
