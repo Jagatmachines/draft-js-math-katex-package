@@ -301,6 +301,8 @@ export default class CustomInlineToolbarEditor extends Component {
             editorState={this.props.editorState}
             onChange={this.props.onChange}
             modifier={imagePlugin.addImage}
+            accept={this.props.accept}
+            uploadImage={this.props.imageUploadFn}
           />
 
           <AlignmentTool />

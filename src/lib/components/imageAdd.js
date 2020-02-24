@@ -55,13 +55,24 @@ export default class ImageAdd extends Component {
     }
   };
 
-  changeUrl = evt => {
-    this.setState({ url: evt.target.value });
-    if (this.validateUrl(evt.target.value || "") && this.state.invalidUrl) {
+  changeUrl = url => {
+    this.setState({ url});
+    if (this.validateUrl(url || "") && this.state.invalidUrl) {
       this.setState({ invalidUrl: undefined });
     }
   };
-
+  onFileChange = async evt => {
+    if(evt.target.files && this.props.uploadImage){
+      try{
+        const url = await this.props.uploadImage(evt.target.files);
+        if(url){
+         this.changeUrl(url)
+        }
+      }catch(err){
+        throw new Error("Upload Failed")
+      }
+    }
+  }
   render() {
     const popoverClassName = this.state.open
       ? styles.addImagePopover
@@ -69,7 +80,7 @@ export default class ImageAdd extends Component {
     const buttonClassName = this.state.open
       ? styles.addImagePressedButton
       : styles.addImageButton;
-
+    const {accept} = this.props;
     return (
       <div className={styles.addImage}>
         {/* <button
@@ -81,14 +92,15 @@ export default class ImageAdd extends Component {
         </button> */}
         <div className={popoverClassName} onClick={this.onPopoverClick}>
           <div className="url-container">
-            <input
+            {this.props.uploadImage ? <input type="file" accept={accept || 'image/*'} onChange={this.onFileChange}/> : <input
               className="url-input"
               type="text"
               placeholder="Paste the image url …"
               className={styles.addImageInput}
               onChange={this.changeUrl}
               value={this.state.url}
-            />
+            />}
+            
             {this.state.invalidUrl && (
               <span className="invalid">{this.state.invalidUrl}</span>
             )}
