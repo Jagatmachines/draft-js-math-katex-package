@@ -62,6 +62,10 @@ export default class ImageAdd extends Component {
       this.setState({ invalidUrl: undefined });
     }
   };
+  onInputChange = (evt) => {
+    const {value} = evt.target;
+    this.changeUrl(value)
+  }
   onFileChange = async evt => {
     if(evt.target.files && this.props.uploadImage){
       try{
@@ -101,7 +105,7 @@ export default class ImageAdd extends Component {
               type="text"
               placeholder="Paste the image url …"
               className={styles.addImageInput}
-              onChange={this.changeUrl}
+              onChange={this.onInputChange}
               value={this.state.url}
             />}
             
