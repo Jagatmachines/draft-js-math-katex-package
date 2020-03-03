@@ -5,7 +5,8 @@ export default class ImageAdd extends Component {
   // Start the popover closed
   state = {
     url: "",
-    open: false
+    open: false,
+    isUploading: false
   };
 
   // When the popover is open and users click anywhere on the page,
@@ -64,12 +65,15 @@ export default class ImageAdd extends Component {
   onFileChange = async evt => {
     if(evt.target.files && this.props.uploadImage){
       try{
+        this.setState({isUploading:true})
         const url = await this.props.uploadImage(evt.target.files);
         if(url){
          this.changeUrl(url)
         }
       }catch(err){
         throw new Error("Upload Failed")
+      }finally{
+        this.setState({isUploading:false})
       }
     }
   }
@@ -107,14 +111,14 @@ export default class ImageAdd extends Component {
           </div>
           <div className="image-button-container">
             <button
-              disabled={!this.state.url || this.state.url === ""}
+              disabled={!this.state.url || this.state.url === "" || this.state.isUploading}
               className={
                 this.props.imageButtonClassName || styles.addImageConfirmButton
               }
               type="button"
               onClick={this.addImage}
             >
-              Add
+              {this.state.isUploading ? 'Uploading...': 'Add'}
             </button>
           </div>
         </div>
