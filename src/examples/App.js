@@ -1,10 +1,11 @@
 import React from 'react';
-import CustomInlineToolbarEditor from '../lib';
+// import CustomInlineToolbarEditor from '../lib';
 
 function App() {
     return (
         <React.Fragment>
-            <CustomInlineToolbarEditor/>
+            {/* <CustomInlineToolbarEditor/> */}
+            div
         </React.Fragment>
     )
 }
