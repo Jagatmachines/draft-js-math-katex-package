@@ -3,14 +3,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   mode:'development',
+  context:__dirname,
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'index.js',
-    libraryTarget: 'window' // THIS IS THE MOST IMPORTANT LINE! :mindblow: I wasted more than 2 days until realize this was the line most important in all this guide.
+    publicPath: '/'
   },
   devServer:{
-    contentBase: path.join(__dirname,'public')
+    historyApiFallback: true
   },
   module: {
     rules: [
@@ -25,8 +26,6 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              // you can specify a publicPath here
-              // by default it uses publicPath in webpackOptions.output
               publicPath: '../',
               hmr: process.env.NODE_ENV === 'development',
             },
@@ -45,12 +44,8 @@ module.exports = {
               }
             ]
           }, 
-         
     ]
   },
-  externals: {
-    'react': 'commonjs react' // this line is just to use the React dependency of our parent-testing-project instead of using our own React.
-  }, 
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].css',
