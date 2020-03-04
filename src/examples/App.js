@@ -1,11 +1,16 @@
-import React from 'react';
-// import CustomInlineToolbarEditor from '../lib';
-
-function App() {
+import React, { useState } from 'react';
+import CustomInlineToolbarEditor from '../lib';
+import {EditorState} from 'draft-js';
+const App = () => {
+    const [editorState,setEditorState] = useState(EditorState.createEmpty())
     return (
         <React.Fragment>
-            {/* <CustomInlineToolbarEditor/> */}
-            div
+            <CustomInlineToolbarEditor
+            editorState={editorState}
+            imageButtonClassName={'btn btn-sm btn-green'}
+            onChange={setEditorState}
+            // imageUploadFn={this.props.uploadImage}
+            />
         </React.Fragment>
     )
 }
