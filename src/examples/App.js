@@ -1,7 +1,6 @@
 import React from 'react';
 import CustomInlineToolbarEditor from '../lib';
-import {EditorState, convertToRaw} from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
+import {EditorState} from 'draft-js';
 
 class App extends React.Component {
     state={
