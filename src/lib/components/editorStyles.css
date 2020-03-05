@@ -5,12 +5,23 @@
   padding: 16px;
   border-radius: 2px;
   margin-bottom: 2em;
-  box-shadow: inset 0px 1px 8px -3px #ABABAB;
+  /* box-shadow: inset 0px 1px 8px -3px #ABABAB; */
   background: #fefefe;
-}
+  min-height: 300px;
+  position: relative;
 
+}
+.DraftEditor-root{
+  height: 300px;
+}
+.DraftEditor-editorContainer{
+  height: 300px;
+}
+.public-DraftEditor-content{
+  height: 300px;
+}
 .editor :global(.public-DraftEditor-content) {
-  min-height: 140px;
+  height: 300px;
 }
 
 .options {
@@ -35,4 +46,15 @@
 .headlineButton:hover,
 .headlineButton:focus {
   background: #f3f3f3;
+}
+
+.url-container input{
+  position: absolute;
+  bottom: 16px;
+  width: 300px;
+}
+.image-button-container{
+  position: absolute;
+  bottom: 16px;
+  left: 332px
 }
