@@ -66,19 +66,19 @@ export default class ImageAdd extends Component {
     const {value} = evt.target;
     this.changeUrl(value)
   }
-  onFileChange = async evt => {
+  onFileChange =  evt => {
     if(evt.target.files && this.props.uploadImage){
-      try{
         this.setState({isUploading:true})
-        const url = await this.props.uploadImage(evt.target.files);
-        if(url){
-         this.changeUrl(url)
-        }
-      }catch(err){
-        throw new Error("Upload Failed")
-      }finally{
-        this.setState({isUploading:false})
-      }
+        this.props.uploadImage(evt.target.files).then((url) => {
+          if(url){
+            this.changeUrl(url)
+          }
+          this.setState({isUploading:false})
+        }).catch((err) => {
+          this.setState({isUploading:false})
+          throw new Error("Upload Failed")
+        });
+        
     }
   }
   render() {
