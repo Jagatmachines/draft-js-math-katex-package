@@ -3,6 +3,7 @@ import styles from "./imageStyle.css";
 
 export default class ImageAdd extends Component {
   // Start the popover closed
+  fileInput = React.createRef()
   state = {
     url: "",
     open: false,
@@ -51,11 +52,17 @@ export default class ImageAdd extends Component {
     if (url && url !== "" && this.validateUrl(url)) {
       this.setState({ invalidUrl: undefined });
       onChange(this.props.modifier(editorState, url));
+      this.resetUploadState()
     } else {
       this.setState({ invalidUrl: "Invalid Url, Enter a valid url" });
     }
   };
-
+  resetUploadState = () => {
+    this.setState({url:''})
+      if(this.fileInput && this.fileInput.current){
+        this.fileInput.current.value=''
+      }
+  }
   changeUrl = url => {
     this.setState({ url});
     if (this.validateUrl(url || "") && this.state.invalidUrl) {
@@ -78,7 +85,6 @@ export default class ImageAdd extends Component {
           this.setState({isUploading:false})
           throw new Error("Upload Failed")
         });
-        
     }
   }
   render() {
@@ -91,16 +97,9 @@ export default class ImageAdd extends Component {
     const {accept} = this.props;
     return (
       <div className={styles.addImage}>
-        {/* <button
-          className={buttonClassName}
-          onMouseUp={this.openPopover}
-          type="button"
-        >
-          +
-        </button> */}
         <div className={popoverClassName} onClick={this.onPopoverClick}>
           <div className="url-container">
-            {this.props.uploadImage ? <input type="file" accept={accept || 'image/*'} onChange={this.onFileChange}/> : <input
+            {this.props.uploadImage ? <input type="file" ref={this.fileInput} accept={accept || 'image/*'} onChange={this.onFileChange}/> : <input
               className="url-input"
               type="text"
               placeholder="Paste the image url …"
