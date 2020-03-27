@@ -99,8 +99,12 @@ export default class ImageAdd extends Component {
     return (
       <div className={styles.addImage}>
         <div className={popoverClassName} onClick={this.onPopoverClick}>
-          <div className="url-container">
-            {this.props.uploadImage ? <input type="file" ref={this.fileInput} accept={accept || 'image/*'} onChange={this.onFileChange}/> : <input
+          <div className="input-group">
+          <div className="custom-file">
+            {this.props.uploadImage ? <>
+              <input type="file" ref={this.fileInput} accept={accept || 'image/*'} onChange={this.onFileChange} className="custom-file-input" id="inputGroupFile04" />
+              <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+            </> : <input
               className="url-input"
               type="text"
               placeholder="Paste the image url …"
@@ -113,7 +117,7 @@ export default class ImageAdd extends Component {
               <span className="invalid">{this.state.invalidUrl}</span>
             )}
           </div>
-          <div className="image-button-container">
+          <div className="input-group-append">
             <button
               disabled={!this.state.url || this.state.url === "" || this.state.isUploading}
               className={
@@ -124,6 +128,7 @@ export default class ImageAdd extends Component {
             >
               {this.state.isUploading ? 'Uploading...': 'Add'}
             </button>
+          </div>
           </div>
         </div>
       </div>
