@@ -74,7 +74,7 @@ export default class ImageAdd extends Component {
     this.changeUrl(value)
   }
   onFileChange =  evt => {
-    this.setState({url:''})
+    this.changeUrl('')
     if(evt.target.files && this.props.uploadImage){
         this.setState({isUploading:true})
         this.props.uploadImage(evt.target.files).then((url) => {
