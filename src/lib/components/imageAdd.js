@@ -7,6 +7,9 @@ export default class ImageAdd extends Component {
   state = {
     url: "",
     open: false,
+    file:{
+      name:''
+    },
     isUploading: false
   };
 
@@ -75,6 +78,7 @@ export default class ImageAdd extends Component {
   }
   onFileChange =  evt => {
     this.changeUrl('')
+    this.setState({file:evt.target.files[0]})
     if(evt.target.files && this.props.uploadImage){
         this.setState({isUploading:true})
         this.props.uploadImage(evt.target.files).then((url) => {
@@ -89,6 +93,7 @@ export default class ImageAdd extends Component {
     }
   }
   render() {
+    console.log(this.state.file)
     const popoverClassName = this.state.open
       ? styles.addImagePopover
       : styles.addImageClosedPopover;
@@ -103,7 +108,7 @@ export default class ImageAdd extends Component {
           <div className="custom-file">
             {this.props.uploadImage ? <>
               <input type="file" ref={this.fileInput} accept={accept || 'image/*'} onChange={this.onFileChange} className="custom-file-input" id="inputGroupFile04" />
-              <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
+            <label class="custom-file-label" for="inputGroupFile04"> {this.state.file.name || 'Choose file'}</label>
             </> : <input
               className="url-input"
               type="text"
