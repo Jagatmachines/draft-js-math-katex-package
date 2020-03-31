@@ -61,7 +61,9 @@ export default class ImageAdd extends Component {
     }
   };
   resetUploadState = () => {
-    this.setState({url:''})
+    this.setState({url:'',file:{
+      name:''
+    }})
       if(this.fileInput && this.fileInput.current){
         this.fileInput.current.value=''
       }
@@ -93,7 +95,6 @@ export default class ImageAdd extends Component {
     }
   }
   render() {
-    console.log(this.state.file)
     const popoverClassName = this.state.open
       ? styles.addImagePopover
       : styles.addImageClosedPopover;
